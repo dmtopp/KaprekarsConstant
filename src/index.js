@@ -1,26 +1,27 @@
 const MAGIC_NUMBER = '6174'
 const int = str => parseInt(str, 10)
 
+const sortDigits = sortCb => numberStr =>
+  `${numberStr}`.split('').sort(sortCb).join('')
+
 // 1) arrange in ascending order
-export const arrangeAsc = numberStr =>
-  `${numberStr}`.split('').sort((a, b) => a - b).join('')
+export const arrangeAsc = sortDigits((a, b) => a - b)
 
 // 2) arrange in descending order
-export const arrangeDsc = numberStr =>
-  `${numberStr}`.split('').sort((a, b) => b - a).join('')
+export const arrangeDsc = sortDigits((a, b) => b - a)
 
 // 3) add 0s to make two four-digit numbers
 export const padZeros = numberStr =>
-  (`${numberStr}`.length < 4 ? padZeros(`0${numberStr}`) : numberStr)
+  (numberStr.length < 4 ? padZeros(`0${numberStr}`) : numberStr)
 
-// 4) subtract the smaller number from the bigger number (abs(one - two))?
+// 4) subtract the smaller number from the bigger number
 export const subtractSmallerFromLarger = (num1, num2) => padZeros(`${Math.abs(int(num1) - int(num2))}`)
 
 // 5) repeat subtraction until difference reaches 6174
 // 6) return number of iterations until 6174
 export default (number) => {
   let numberOfSteps = 0
-  let result = number
+  let result = `${number}`
 
   while (result !== MAGIC_NUMBER) {
     const asc = padZeros(arrangeAsc(result))
@@ -28,10 +29,6 @@ export default (number) => {
 
     result = subtractSmallerFromLarger(asc, dsc)
     numberOfSteps += 1
-
-    if (numberOfSteps > 10) {
-      break
-    }
   }
 
   return numberOfSteps

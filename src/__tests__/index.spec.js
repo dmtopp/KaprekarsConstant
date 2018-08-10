@@ -1,11 +1,5 @@
 import KaprekarsConstant, { arrangeAsc, arrangeDsc, padZeros, subtractSmallerFromLarger } from '../index'
 
-describe.skip('(placeholder test)', () => {
-  it('should not throw', () => {
-    expect(KaprekarsConstant).not.toThrow()
-  })
-})
-
 describe('(Helper) arrangeAsc', () => {
   it('should sort the digits of a number', () => {
     expect(arrangeAsc('3521')).toBe('1235')
